@@ -888,9 +888,15 @@ module cv32e40px_id_stage
   generate
     if (APU == 1) begin : gen_apu
 
-      if (APU_NARGS_CPU >= 1) assign apu_operands[0] = alu_operand_a;
-      if (APU_NARGS_CPU >= 2) assign apu_operands[1] = alu_operand_b;
-      if (APU_NARGS_CPU >= 3) assign apu_operands[2] = alu_operand_c;
+      if (APU_NARGS_CPU >= 1) begin : gen_apu_nargs_1
+        assign apu_operands[0] = alu_operand_a;
+      end
+      if (APU_NARGS_CPU >= 2) begin : gen_apu_nargs_2
+        assign apu_operands[1] = alu_operand_b;
+      end
+      if (APU_NARGS_CPU >= 3) begin : gen_apu_nargs_3
+        assign apu_operands[2] = alu_operand_c;
+      end
 
       // write reg
       assign apu_waddr = regfile_alu_waddr_id;
